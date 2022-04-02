@@ -1,10 +1,12 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, non_constant_identifier_names, camel_case_types, prefer_const_constructors_in_immutables, must_be_immutable, unused_local_variable
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, non_constant_identifier_names, camel_case_types, prefer_const_constructors_in_immutables, must_be_immutable, unused_local_variable, deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nomina_music_app/screens/home/home_screen.dart';
 import 'package:nomina_music_app/ui/input_decorations.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'dart:math';
+
 class RegisterCoordinator extends StatefulWidget {
   @override
   State<RegisterCoordinator> createState() => _RegisterCoordinatorState();
@@ -14,7 +16,7 @@ class _RegisterCoordinatorState extends State<RegisterCoordinator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      //floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       appBar: AppBar(
         title: Text('Registrar Coordinador'),
         leading: IconButton(
@@ -47,6 +49,7 @@ class Card_Registrar_Coordinador extends StatefulWidget {
 
 class _Card_Registrar_CoordinadorState
     extends State<Card_Registrar_Coordinador> {
+  final _formKey = GlobalKey<FormState>();
   TextEditingController nombre_controller = TextEditingController();
   TextEditingController apellido_controller = TextEditingController();
   TextEditingController cedula_controller = TextEditingController();
@@ -56,7 +59,6 @@ class _Card_Registrar_CoordinadorState
   final fb = FirebaseDatabase.instance;
   @override
   Widget build(BuildContext context) {
-
     //Valores random para el ID
     var rng = Random();
     var id = rng.nextInt(10000);
@@ -64,58 +66,121 @@ class _Card_Registrar_CoordinadorState
 
     final ref = fb.ref().child('Coordinador/$id');
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      borderOnForeground: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       elevation: 25,
-      child: SizedBox(
-        width: 350,
-        height: 450,
-        child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextFormField(
-                controller: cedula_controller,
-                decoration: InputDecorations.authInputDecoration(
-                    hintText: 'Cedula', labelText: 'Cedula:')),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextFormField(
-                controller: nombre_controller,
-                decoration: InputDecorations.authInputDecoration(
-                    hintText: 'Nombre del Musico', labelText: 'Nombre:')),
-          ),
-          SizedBox(height: 1),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextFormField(
-                controller: apellido_controller,
-                decoration: InputDecorations.authInputDecoration(
-                    hintText: 'Apellido del Musico', labelText: 'Apellido:')),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextFormField(
-                controller: salario_controller,
-                decoration: InputDecorations.authInputDecoration(
-                    hintText: 'Salario', labelText: 'Salario:')),
-          ),
-          SizedBox(height: 70),
-          FloatingActionButton(
-            onPressed: () {
-              ref
-              .set({
-                    "Cedula":cedula_controller.text,
-                    "Nombre del Musico":nombre_controller.text,
-                    "Apellido del Musico":apellido_controller.text,
-                    "Salario":double.parse(salario_controller.text).toStringAsFixed(3),
-                  }).asStream();
+      child: SingleChildScrollView(
+        child: SizedBox(
+          width: 350,
+          height: 540,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                SizedBox(height: 5,),
+                CircleAvatar(
+                  child: Image.asset('assets/img_add_coordinador.png',fit: BoxFit.fitHeight,),
+                  radius: 52,
+                  backgroundColor: Colors.white,
+                
+                 
+                ),
+                Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: TextFormField(
+                        validator: (valor) {
+                          if (valor!.isEmpty) {
+                            return 'Por favor digite una cedula correcta';
+                          }
 
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (_) => HomeScreen()));
-            },
-            child: const Icon(Icons.save),
+                          return null;
+                        },
+                        keyboardType: TextInputType.number,
+                        controller: cedula_controller,
+                        decoration: InputDecorations.authInputDecoration(
+                            hintText: 'Cedula', labelText: 'Cedula:')),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: TextFormField(
+                        validator: (valor) {
+                          if (valor!.isEmpty) {
+                            return 'Por favor digite un nombre';
+                          }
+
+                          return null;
+                        },
+                        keyboardType: TextInputType.text,
+                        controller: nombre_controller,
+                        decoration: InputDecorations.authInputDecoration(
+                            hintText: 'Nombre del Musico',
+                            labelText: 'Nombre:')),
+                  ),
+                  SizedBox(height: 1),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: TextFormField(
+                        validator: (valor) {
+                          if (valor!.isEmpty) {
+                            return 'Por favor digite un apellido correcto';
+                          }
+
+                          return null;
+                        },
+                        keyboardType: TextInputType.text,
+                        controller: apellido_controller,
+                        decoration: InputDecorations.authInputDecoration(
+                            hintText: 'Apellido del Musico',
+                            labelText: 'Apellido:')),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: TextFormField(
+                        validator: (valor) {
+                          if (valor!.isEmpty) {
+                            return 'Por favor digite un salario correcto';
+                          }
+
+                          return null;
+                        },
+                        keyboardType: TextInputType.number,
+                        controller: salario_controller,
+                        decoration: InputDecorations.authInputDecoration(
+                            hintText: 'Salario', labelText: 'Salario:')),
+                  ),
+                  SizedBox(height: 10),
+                  FloatingActionButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        print('Validacion +');
+
+                        ref.set({
+                          "Cedula": cedula_controller.text,
+                          "Nombre del Musico": nombre_controller.text,
+                          "Apellido del Musico": apellido_controller.text,
+                          "Salario": NumberFormat.currency(
+                            symbol: '\$',
+                            locale: 'pt_BR',
+                            decimalDigits: 0,
+                          ).format(double.parse(salario_controller.text)),
+                          //  .toStringAsFixed(3),
+                        }).asStream();
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (_) => HomeScreen()));
+                      } else {
+                        print('Validacion negativa ');
+                        Scaffold.of(context).showSnackBar(
+                            SnackBar(content: Text('Valores incorrectos')));
+                      }
+                    },
+                    child: Icon(Icons.save),
+                  ),
+                ]),
+              ],
+            ),
           ),
-        ]        ),
+        ),
       ),
     );
   }

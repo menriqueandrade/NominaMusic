@@ -1,8 +1,9 @@
-// ignore_for_file: unused_local_variable, non_constant_identifier_names
+// ignore_for_file: unused_local_variable, non_constant_identifier_names, deprecated_member_use
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nomina_music_app/ui/input_decorations.dart';
 
 void main() => runApp(ListaCoordinador());
@@ -13,6 +14,7 @@ class ListaCoordinador extends StatefulWidget {
 }
 
 class _ListaCoordinadorState extends State<ListaCoordinador> {
+  final _formKey = GlobalKey<FormState>();
   final fb = FirebaseDatabase.instance;
   TextEditingController nombre_controller = TextEditingController();
   TextEditingController apellido_controller = TextEditingController();
@@ -61,7 +63,8 @@ class _ListaCoordinadorState extends State<ListaCoordinador> {
 
                     g = v.replaceAll(
                         RegExp(
-                            "{|}| Cedula: |Apellido del Musico: |Nombre del Musico: |Salario:"),"");
+                            "{|}| Cedula: |Apellido del Musico: |Nombre del Musico: |Salario:"),
+                        "");
                     g.trim();
 
                     l = g.split(','); // [}]
@@ -133,7 +136,6 @@ class _ListaCoordinadorState extends State<ListaCoordinador> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                   
                                   ],
                                 ),
                               ],
@@ -157,58 +159,94 @@ class _ListaCoordinadorState extends State<ListaCoordinador> {
       context: context,
       builder: (ctx) => SingleChildScrollView(
         child: AlertDialog(
-          title: Column(
-            children: [
-              Container(
-                //decoration: BoxDecoration(border: Border.all()),
-                child: TextField(
+          title: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  validator: (valor){
+                    if(valor!.isEmpty){
+                      return 'Por favor digite un nombre correcto';
+                    }
+                   
+                    return null;
+                  },
+                  keyboardType: TextInputType.name,
                   controller: nombre_controller,
                   textAlign: TextAlign.start,
                   decoration: InputDecoration(
                     labelText: 'Nombre',
                   ),
+                 
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                //decoration: BoxDecoration(border: Border.all()),
-                child: TextField(
-                  controller: apellido_controller,
-                  textAlign: TextAlign.start,
-                  decoration: InputDecoration(
-                    labelText: 'Apellido',
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  //decoration: BoxDecoration(border: Border.all()),
+                  child: TextFormField(
+                    validator: (valor2){
+                      if(valor2!.isEmpty){
+                        return 'Por favor digite un apellido correcto';
+                      }
+                     
+                      return null;
+                    },
+                    keyboardType: TextInputType.name,
+                    controller: apellido_controller,
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                      labelText: 'Apellido',
+                    ),
+                   
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                // decoration: BoxDecoration(border: Border.all()),
-                child: TextField(
-                  controller: cedula_controller,
-                  textAlign: TextAlign.start,
-                  decoration: InputDecoration(
-                    labelText: 'Cedula',
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  // decoration: BoxDecoration(border: Border.all()),
+                  child: TextFormField(
+                    validator: (valor){
+                      if(valor!.isEmpty){
+                        return 'Por favor digite la cedula correcta';
+                      }
+                     
+                      return null;
+                    },
+                    keyboardType: TextInputType.number,
+                    controller: cedula_controller,
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                      labelText: 'Cedula',
+                    ),
+                   
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                // decoration: BoxDecoration(border: Border.all()),
-                child: TextField(
-                  controller: salario_controller,
-                  textAlign: TextAlign.start,
-                  decoration: InputDecoration(
-                    labelText: 'Salario',
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  // decoration: BoxDecoration(border: Border.all()),
+                  child: TextFormField(
+                    validator: (valor){
+                      if(valor!.isEmpty){
+                        return 'Por favor digite un Salario correcto';
+                      }
+                     
+                      return null;
+                    },
+                    keyboardType: TextInputType.number,
+                    controller: salario_controller,
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                      labelText: 'Salario',
+                    ),
+                   
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           actions: <Widget>[
             Center(
@@ -229,8 +267,16 @@ class _ListaCoordinadorState extends State<ListaCoordinador> {
                   SizedBox(height: 1),
                   MaterialButton(
                     onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        print('Validacion +');
+                       // Scaffold.of(context).showSnackBar(
+                           // SnackBar(content: Text('Processing Data')));
                       await upd();
                       Navigator.of(ctx).pop();
+                      }else{
+                        print('Validacion negativa ');
+                      }
+                      
                     },
                     color: Color.fromARGB(255, 0, 22, 145),
                     child: Text(

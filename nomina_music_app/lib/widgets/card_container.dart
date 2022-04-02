@@ -14,7 +14,7 @@ class CardContainer extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 30),
       child: Container(
-        width: double.infinity,
+        width: double.maxFinite,
         //height: 300, Con esto le damos el tamaño al Card
         /*Hacemos para el padding para que nada quede pegado en el card*/
         padding: EdgeInsets.all(20),
@@ -28,7 +28,7 @@ class CardContainer extends StatelessWidget {
 
   BoxDecoration _CreacionCard() => BoxDecoration(
           /*Aca podemos trabajar atributos de el card en especifico*/
-          color: Colors.red,
+          color: Color.fromARGB(255, 164, 23, 23),
           borderRadius: BorderRadius.circular(25),
           /*Shadow sirve para darle sombra al Card*/
           boxShadow: [
