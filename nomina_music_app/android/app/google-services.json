@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "20589971786",
+    "project_id": "nomina-c490e",
+    "storage_bucket": "nomina-c490e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20589971786:android:42c3468098c74cd74199b3",
+        "android_client_info": {
+          "package_name": "com.example.nomina_music_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20589971786-2kkb0oq0uh0dpi9h7sqtnvv2ccku328r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbVIiiYnHb4YhO7kk8xyKPD5GzgG9jbP4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20589971786-2kkb0oq0uh0dpi9h7sqtnvv2ccku328r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
