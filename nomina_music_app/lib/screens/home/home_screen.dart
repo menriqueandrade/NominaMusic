@@ -25,23 +25,34 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('Pagina principal'),
+        title: Text('Pagina principal', style:TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Raleway', color: Colors.black87)),
+        
       ),
-      /*
-     body: Center(
-        child: ElevatedButton(
-          onPressed: _openDrawer,
-          child: const Text('Open Drawer'),
-        ),
-      ),
-      */
+    
       drawer: Drawer(
         child: ListView(padding: EdgeInsets.zero, children: [
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
-            child: Text('NominaMusic'),
+            child: Column(children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 65,
+                    backgroundColor: Colors.blue,
+                    child: Image.asset('assets/img_acordeon.png')),
+                  Column(
+                    children: [
+                      SizedBox(width: 100,
+                     ),
+                      Text('MUSIC APP',
+                      style:TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Raleway')),
+                    ],
+                  ),
+                ],
+              )
+            ]),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -76,7 +87,6 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
           ),
-          
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
@@ -93,148 +103,173 @@ class _HomeScreenState extends State<HomeScreen> {
         ]),
       ),
       body: SingleChildScrollView(
-        child: Center(
-          child: Container(
-            child: Column(
-              children: [
-                Card(
-                  margin: EdgeInsets.all(20),
-                  child: InkWell(
-                    splashColor: Colors.blue.withAlpha(30),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: 320,
-                          height: 200,
-                          child: Image.asset(
-                            'assets/img_coordinador.png',
-                            fit: BoxFit.fill,
-                            // 'Listado de Coordinadores',
-                            // textAlign: TextAlign.center,
+        child: Container(
+          //Para poner fondo de pantallas en la app no se te olvide poner un container arriba
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage("https://i.pinimg.com/originals/a9/d8/85/a9d8852f106344921246e89eda560fd3.png",),fit:  BoxFit.fill),
+              
+          ),
+          child: Center(
+            child: Container(
+              child: Column(
+                children: [
+                  Card(
+                    margin: EdgeInsets.all(10),
+                    child: InkWell(
+                      splashColor: Colors.blue.withAlpha(30),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: 320,
+                            height: 200,
+                            child: Image.asset(
+                              'assets/img_coordinador.png',
+                              fit: BoxFit.fill,
+                              // 'Listado de Coordinadores',
+                              // textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Listado de Coordinadores",
-                            style: TextStyle(fontFamily: 'Raleway'),
-                          ),
-                        )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Listado de Coordinadores",
+                               style:TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Raleway')
+                             
+                            ),
+                          )
+                        ],
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => ListaCoordinador()));
+                      },
                     ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => ListaCoordinador()));
-                    },
                   ),
-                ),
-                Card(
-                  child: InkWell(
-                    splashColor: Colors.blue.withAlpha(30),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: 320,
-                          height: 200,
-                          child: Image.asset(
-                            'assets/img_musico.png',
-                            fit: BoxFit.fill,
-                            // 'Listado de Coordinadores',
-                            // textAlign: TextAlign.center,
+                  Card(
+                    margin: EdgeInsets.all(10),
+                    child: InkWell(
+                      splashColor: Colors.blue.withAlpha(30),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: 320,
+                            height: 200,
+                            child: Image.asset(
+                              'assets/img_musico.png',
+                              fit: BoxFit.fill,
+                              // 'Listado de Coordinadores',
+                              // textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                        Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text("Listado de Musicos", style: TextStyle(fontFamily: 'Raleway'),),
-                            )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Listado de Musicos",
+                              style:TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Raleway'),
+                            ),
+                          )
+                        ],
+                      ),
+                      onTap: () {
+                        debugPrint('Card tapped.');
+                      },
                     ),
-                    onTap: () {
-                      debugPrint('Card tapped.');
-                    },
                   ),
-                ),
-                 Card(
-                  child: InkWell(
-                    splashColor: Colors.blue.withAlpha(30),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: 320,
-                          height: 200,
-                          child: Image.asset(
-                            'assets/esperando.png',
-                            fit: BoxFit.fill,
-                            // 'Listado de Coordinadores',
-                            // textAlign: TextAlign.center,
+                  Card(
+                    margin: EdgeInsets.all(10),
+                    child: InkWell(
+                      splashColor: Colors.blue.withAlpha(30),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: 320,
+                            height: 200,
+                            child: Image.asset(
+                              'assets/esperando.png',
+                              fit: BoxFit.fill,
+                              // 'Listado de Coordinadores',
+                              // textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                        Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text("........", style: TextStyle(fontFamily: 'Raleway'),),
-                            )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "........",
+                              style:TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Raleway')
+                            ),
+                          )
+                        ],
+                      ),
+                      onTap: () {
+                        debugPrint('Card tapped.');
+                      },
                     ),
-                    onTap: () {
-                      debugPrint('Card tapped.');
-                    },
                   ),
-                ),
-                Card(
-                  child: InkWell(
-                    splashColor: Colors.blue.withAlpha(30),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: 320,
-                          height: 200,
-                          child: Image.asset(
-                            'assets/esperando.png',
-                            fit: BoxFit.fill,
-                            // 'Listado de Coordinadores',
-                            // textAlign: TextAlign.center,
+                  Card(
+                    margin: EdgeInsets.all(10),
+                    child: InkWell(
+                      splashColor: Colors.blue.withAlpha(30),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: 320,
+                            height: 200,
+                            child: Image.asset(
+                              'assets/esperando.png',
+                              fit: BoxFit.fill,
+                              // 'Listado de Coordinadores',
+                              // textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                        Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text("........", style: TextStyle(fontFamily: 'Raleway'),),
-                            )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "........",
+                              style:TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Raleway')
+                            ),
+                          )
+                        ],
+                      ),
+                      onTap: () {
+                        debugPrint('Card tapped.');
+                      },
                     ),
-                    onTap: () {
-                      debugPrint('Card tapped.');
-                    },
                   ),
-                ),
-                Card(
-                  child: InkWell(
-                    splashColor: Colors.blue.withAlpha(30),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: 320,
-                          height: 200,
-                          child: Image.asset(
-                            'assets/esperando.png',
-                            fit: BoxFit.fill,
-                            // 'Listado de Coordinadores',
-                            // textAlign: TextAlign.center,
+                  Card(
+                    margin: EdgeInsets.all(10),
+                    child: InkWell(
+                      splashColor: Colors.blue.withAlpha(30),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: 320,
+                            height: 200,
+                            child: Image.asset(
+                              'assets/esperando.png',
+                              fit: BoxFit.fill,
+                              // 'Listado de Coordinadores',
+                              // textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                        Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text("........", style: TextStyle(fontFamily: 'Raleway'),),
-                            )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "........",
+                              style:TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Raleway')
+                            ),
+                          )
+                        ],
+                      ),
+                      onTap: () {
+                        debugPrint('Card tapped.');
+                      },
                     ),
-                    onTap: () {
-                      debugPrint('Card tapped.');
-                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

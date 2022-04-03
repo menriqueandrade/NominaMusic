@@ -50,6 +50,7 @@ flutter:
     - assets/img_musico.png
     - assets/esperando.png
     - assets/img_add_coordinador.png
+    - assets/img_acordeon.png
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

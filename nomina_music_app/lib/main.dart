@@ -28,6 +28,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
     debugShowCheckedModeBanner:  false,
     title: 'NominaMusic',
+    
     initialRoute: 'home',
     routes: {
       'home':( _ ) => HomeScreen(),

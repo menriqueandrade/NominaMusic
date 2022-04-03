@@ -7,6 +7,8 @@ import 'package:nomina_music_app/ui/input_decorations.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'dart:math';
 
+import 'package:nomina_music_app/widgets/card_container.dart';
+
 class RegisterCoordinator extends StatefulWidget {
   @override
   State<RegisterCoordinator> createState() => _RegisterCoordinatorState();
@@ -28,12 +30,20 @@ class _RegisterCoordinatorState extends State<RegisterCoordinator> {
           },
         ),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Card_Registrar_Coordinador(),
-            ],
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage("https://i.pinimg.com/originals/a9/d8/85/a9d8852f106344921246e89eda560fd3.png",),fit:  BoxFit.fill),
+              
+          ),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+               Card_Registrar_Coordinador(),
+               //CardContainer(child: Text("xD"))
+              ],
+            ),
           ),
         ),
       ),
@@ -47,8 +57,7 @@ class Card_Registrar_Coordinador extends StatefulWidget {
       _Card_Registrar_CoordinadorState();
 }
 
-class _Card_Registrar_CoordinadorState
-    extends State<Card_Registrar_Coordinador> {
+class _Card_Registrar_CoordinadorState extends State<Card_Registrar_Coordinador> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController nombre_controller = TextEditingController();
   TextEditingController apellido_controller = TextEditingController();
@@ -73,111 +82,113 @@ class _Card_Registrar_CoordinadorState
         child: SizedBox(
           width: 350,
           height: 540,
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                SizedBox(height: 5,),
-                CircleAvatar(
-                  child: Image.asset('assets/img_add_coordinador.png',fit: BoxFit.fitHeight,),
-                  radius: 52,
-                  backgroundColor: Colors.white,
-                
-                 
-                ),
-                Column(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: TextFormField(
-                        validator: (valor) {
-                          if (valor!.isEmpty) {
-                            return 'Por favor digite una cedula correcta';
-                          }
-
-                          return null;
-                        },
-                        keyboardType: TextInputType.number,
-                        controller: cedula_controller,
-                        decoration: InputDecorations.authInputDecoration(
-                            hintText: 'Cedula', labelText: 'Cedula:')),
+          child: Center(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  SizedBox(height: 5,),
+                  CircleAvatar(
+                    child: Image.asset('assets/img_add_coordinador.png',fit: BoxFit.fitHeight,),
+                    radius: 52,
+                    backgroundColor: Colors.white,
+                  
+                   
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: TextFormField(
-                        validator: (valor) {
-                          if (valor!.isEmpty) {
-                            return 'Por favor digite un nombre';
-                          }
+                  Column(children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: TextFormField(
+                          validator: (valor) {
+                            if (valor!.isEmpty) {
+                              return 'Por favor digite una cedula correcta';
+                            }
 
-                          return null;
-                        },
-                        keyboardType: TextInputType.text,
-                        controller: nombre_controller,
-                        decoration: InputDecorations.authInputDecoration(
-                            hintText: 'Nombre del Musico',
-                            labelText: 'Nombre:')),
-                  ),
-                  SizedBox(height: 1),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: TextFormField(
-                        validator: (valor) {
-                          if (valor!.isEmpty) {
-                            return 'Por favor digite un apellido correcto';
-                          }
+                            return null;
+                          },
+                          keyboardType: TextInputType.number,
+                          controller: cedula_controller,
+                          decoration: InputDecorations.authInputDecoration(
+                              hintText: 'Cedula', labelText: 'Cedula:')),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: TextFormField(
+                          validator: (valor) {
+                            if (valor!.isEmpty) {
+                              return 'Por favor digite un nombre';
+                            }
 
-                          return null;
-                        },
-                        keyboardType: TextInputType.text,
-                        controller: apellido_controller,
-                        decoration: InputDecorations.authInputDecoration(
-                            hintText: 'Apellido del Musico',
-                            labelText: 'Apellido:')),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: TextFormField(
-                        validator: (valor) {
-                          if (valor!.isEmpty) {
-                            return 'Por favor digite un salario correcto';
-                          }
+                            return null;
+                          },
+                          keyboardType: TextInputType.text,
+                          controller: nombre_controller,
+                          decoration: InputDecorations.authInputDecoration(
+                              hintText: 'Nombre del Musico',
+                              labelText: 'Nombre:')),
+                    ),
+                    SizedBox(height: 1),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: TextFormField(
+                          validator: (valor) {
+                            if (valor!.isEmpty) {
+                              return 'Por favor digite un apellido correcto';
+                            }
 
-                          return null;
-                        },
-                        keyboardType: TextInputType.number,
-                        controller: salario_controller,
-                        decoration: InputDecorations.authInputDecoration(
-                            hintText: 'Salario', labelText: 'Salario:')),
-                  ),
-                  SizedBox(height: 10),
-                  FloatingActionButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        print('Validacion +');
+                            return null;
+                          },
+                          keyboardType: TextInputType.text,
+                          controller: apellido_controller,
+                          decoration: InputDecorations.authInputDecoration(
+                              hintText: 'Apellido del Musico',
+                              labelText: 'Apellido:')),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: TextFormField(
+                          validator: (valor) {
+                            if (valor!.isEmpty) {
+                              return 'Por favor digite un salario correcto';
+                            }
 
-                        ref.set({
-                          "Cedula": cedula_controller.text,
-                          "Nombre del Musico": nombre_controller.text,
-                          "Apellido del Musico": apellido_controller.text,
-                          "Salario": NumberFormat.currency(
-                            symbol: '\$',
-                            locale: 'pt_BR',
-                            decimalDigits: 0,
-                          ).format(double.parse(salario_controller.text)),
-                          //  .toStringAsFixed(3),
-                        }).asStream();
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (_) => HomeScreen()));
-                      } else {
-                        print('Validacion negativa ');
-                        Scaffold.of(context).showSnackBar(
-                            SnackBar(content: Text('Valores incorrectos')));
-                      }
-                    },
-                    child: Icon(Icons.save),
-                  ),
-                ]),
-              ],
+                            return null;
+                          },
+                          keyboardType: TextInputType.number,
+                          controller: salario_controller,
+                          decoration: InputDecorations.authInputDecoration(
+                              hintText: 'Salario', labelText: 'Salario:')),
+                    ),
+                    SizedBox(height: 10),
+                    FloatingActionButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          print('Validacion +');
+
+                          ref.set({
+                            "Cedula": cedula_controller.text,
+                            "Nombre del Musico": nombre_controller.text,
+                            "Apellido del Musico": apellido_controller.text,
+                            "Salario": NumberFormat.currency(
+                              symbol: '\$',
+                              locale: 'pt_BR',
+                              decimalDigits: 0,
+                            ).format(double.parse(salario_controller.text)),
+                            //  .toStringAsFixed(3),
+                          }).asStream();
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (_) => HomeScreen()));
+                        } else {
+                          print('Validacion negativa ');
+                          Scaffold.of(context).showSnackBar(
+                              SnackBar(content: Text('Valores incorrectos')));
+                        }
+                      },
+                      child: Icon(Icons.save),
+                    ),
+                  ]),
+                ],
+              ),
             ),
           ),
         ),
